@@ -3,8 +3,8 @@
 A command-line interface for password-safe files.
 
 ### Usage
-    Usage: pws [action] [ options ] [ safe.psafe3 ] [ pattern ]
-           pws copy -a safe.psafe3 bank account
+    Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
+           pws copy safe.psafe3 bank account -a
            pws default safe.psafe3
            pws copy bank account
 
