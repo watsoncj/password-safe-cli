@@ -1,7 +1,3 @@
-## password-safe-cli
-
-A command-line interface for password-safe files.
-
 ### Usage
     Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
            pws copy safe.psafe3 bank account -a
