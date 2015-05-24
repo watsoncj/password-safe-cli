@@ -2,10 +2,18 @@
 
 A command-line interface for password-safe files.
 
-Copy password to the clipboard:
+### Usage
+    Usage: pws [action] [ options ] [ safe.psafe3 ] [ pattern ]
+           pws copy -a safe.psafe3 bank account
+           pws default safe.psafe3
+           pws copy bank account
 
-    $ pws my bank
-    * My Bank Online [ username ]
+    Actions:
+      copy                 copy the first matched password to the clipboard
+      default              make safe the default
+
+    Options:
+      -a, --all            print all matches, instead of just the first
 
 ## Features
 
@@ -15,7 +23,7 @@ Copy password to the clipboard:
 
 ## Usage
 
-    pws [options] &lt;search text&gt;
+    pws [options] <search text>
     options:
       -a    list all matches, not just the first match
 

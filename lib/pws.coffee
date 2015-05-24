@@ -1,65 +1,76 @@
 #!/usr/bin/env coffee
-argv = require('minimist')(process.argv.slice(2))
-PasswordSafe = require 'password-safe'
+minimist     = require('minimist')
+copy         = require './copy'
 fs           = require 'fs'
-{copy}       = require 'copy-paste'
-notifier     = require 'node-notifier'
+PasswordSafe = require 'password-safe'
+prompt       = require 'prompt'
+
+argv = minimist process.argv.slice(2)
+
+usage = ->
+  console.log """\
+Usage: pws [action] [ options ] [ safe.psafe3 ] [ pattern ]
+       pws copy -a safe.psafe3 bank account
+       pws default safe.psafe3
+       pws copy bank account
+
+Actions:
+  copy                 copy the first matched password to the clipboard
+  default              make safe the default
+
+Options:
+  -a, --all            print all matches, instead of just the first
+"""
+
+userhome = process.env[if process.platform is 'win32' then 'USERPROFILE' else 'HOME']
+
+actions = ['copy', 'default']
+actionOpt = argv['_'].shift()
+if actionOpt not in actions
+  console.error "Unknown action: #{action.yellow}" if action
+  return usage()
+action = require "./#{actionOpt}"
+
+patternOpt = argv['_']?.join(' ').toString()
+if not patternOpt
+  console.error "Pattern required"
+  return usage()
+
+try
+  safeFilePath = fs.readFileSync("#{userhome}/.pws").toString().trim()
+catch
+  safeFilePath = argv['_'].shift()
 
 fileNamePart = (path) ->
   parts = path.trim().split('/')
   parts[parts.length - 1]
 
-matches = (haystack, needle) ->
-  haystack?.toLowerCase().indexOf(needle.toLowerCase()) >= 0
-
-safeFilePath = fs.readFileSync('.safe').toString().trim()
 safeName     = fileNamePart safeFilePath
 
-prompt = require 'prompt'
-prompt.message = safeName
-
-promptCb = (err, properties) ->
+openSafe = (err, properties) ->
   db = fs.readFileSync safeFilePath.toString().trim()
   safe = new PasswordSafe
     password: properties.password
 
   safe.load db, (err, header, records) ->
     return console.log 'Error: ', err if err
-    searchKey = argv['_']?.join(' ').toString()
-    matching = []
-    for record in records
-      if matches record.getTitle().toString(), searchKey
-        matching.push record
+    options =
+      pattern: patternOpt
+      safeName: safeName
+      safePath: safeFilePath
+      argv: argv
+      userhome: userhome
 
-    copied = false
-    for match in matching
-      if match.getPassword().toString().trim()
-        if not copied
-          copyPassword match
-          copied = true
-          console.log "*".yellow,
-            match.getTitle(),
-            "[",
-            match.getUsername().grey,
-            "]"
-        else if argv['a'] or argv['all']
-          console.log " ",
-            match.getTitle(),
-            "[",
-            match.getUsername().grey,
-            "]"
-    console.log "No entries found" unless copied
+    action records, options
 
-copyPassword = (record) ->
-  copy record.getPassword().toString()
-  notifier.notify
-    title: safeName
-    message: "#{record.getTitle()} password copied to the clipboard"
+passwordPrompt = (safeName, done) ->
+  schema =
+    properties:
+      password:
+        hidden: true
+        required: true
 
-prompt.get
-  properties:
-    password:
-      hidden: true
-      required: true
-,
-  promptCb
+  prompt.message = safeName
+  prompt.get schema, done
+
+passwordPrompt safeName, openSafe
