@@ -1,6 +1,6 @@
 {
   "name": "password-safe-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A command-line interface for password-safe files",
   "main": "./lib/pws.coffee",
   "bin": {
