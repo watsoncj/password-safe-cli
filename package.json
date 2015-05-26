@@ -11,11 +11,15 @@
   },
   "author": "Casey Watson",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watsoncj/password-safe-cli"
+  }
   "dependencies": {
     "copy-paste": "^1.1.0",
     "minimist": "^1.1.1",
     "node-notifier": "^4.2.1",
     "password-safe": "0.0.2",
     "prompt": "^0.2.14"
-  }
+  },
 }
