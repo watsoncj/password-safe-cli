@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/watsoncj/password-safe-cli"
-  }
+  },
   "dependencies": {
     "copy-paste": "^1.1.0",
     "minimist": "^1.1.1",
