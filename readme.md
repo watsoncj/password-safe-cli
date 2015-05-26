@@ -1,4 +1,5 @@
-### Usage
+Copy passwords to the clipboard from your safe.
+
     Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
            pws copy safe.psafe3 bank account -a
            pws default safe.psafe3
@@ -17,11 +18,6 @@
 - Supports pwsafe3 versions 3.01 through 3.30
 - Currenly read-only
 
-## Usage
-
-    pws [options] <search text>
-    options:
-      -a    list all matches, not just the first match
 
 ## Credits
 
