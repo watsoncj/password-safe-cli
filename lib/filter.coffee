@@ -1,9 +1,12 @@
-isMatch = (haystack, needle) ->
-  haystack?.toLowerCase().indexOf(needle.toLowerCase()) >= 0
+editdistance = require 'editdistance'
 
 module.exports = (records, pattern) ->
-  filtered = []
-  for record in records
-    if isMatch record.getTitle().toString(), pattern
-      filtered.push record
-  filtered
+  compare = editdistance(pattern)
+
+  records.sort (a, b) ->
+    if a.getTitle() and b.getTitle()
+      return compare.distance(a.getTitle()) - compare.distance(b.getTitle())
+    else if a.getTitle()
+      return -1
+    else
+      return 1

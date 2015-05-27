@@ -7,7 +7,7 @@
     "pws": "./lib/pws.coffee"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha lib/*Spec.coffee"
   },
   "author": "Casey Watson",
   "license": "MIT",
@@ -17,9 +17,15 @@
   },
   "dependencies": {
     "copy-paste": "^1.1.0",
+    "editdistance": "^0.2.2",
     "minimist": "^1.1.1",
     "node-notifier": "^4.2.1",
     "password-safe": "0.0.2",
     "prompt": "^0.2.14"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "coffee-script": "^1.9.3",
+    "mocha": "^2.2.5"
   }
 }
