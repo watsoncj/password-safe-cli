@@ -20,13 +20,13 @@ module.exports = (records, options)->
         console.log "*".yellow,
           record.getTitle(),
           "[",
-          record.getUsername().grey,
+          record.getUsername()?.grey,
           "]"
       else if options.argv['a'] or options.argv['all']
         console.log " ",
           record.getTitle(),
           "[",
-          record.getUsername().grey,
+          record.getUsername()?.grey,
           "]"
   console.log "No entries found" unless copied
 
