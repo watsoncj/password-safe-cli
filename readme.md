@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/watsoncj/password-safe-cli.svg?branch=master)](https://travis-ci.org/watsoncj/password-safe-cli)
+
 Copy passwords to the clipboard from your safe.
 
     Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
