@@ -2,10 +2,10 @@
 
 Copy passwords to the clipboard from your safe.
 
-    Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
-           pws copy safe.psafe3 bank account -a
-           pws default safe.psafe3
-           pws copy bank account
+    Usage: psafe [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
+           psafe copy safe.psafe3 bank account -a
+           psafe default safe.psafe3
+           psafe copy bank account
 
     Actions:
       copy                 copy the first matched password to the clipboard
@@ -17,7 +17,7 @@ Copy passwords to the clipboard from your safe.
 ## Features
 
 - Native notifications
-- Supports pwsafe3 versions 3.01 through 3.30
+- Supports psafe3 versions 3.01 through 3.30
 - Currenly read-only
 
 ## Installation

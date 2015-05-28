@@ -9,10 +9,10 @@ argv = minimist process.argv.slice(2)
 
 usage = ->
   console.log """\
-Usage: pws [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
-       pws copy safe.psafe3 bank account -a
-       pws default safe.psafe3
-       pws copy bank account
+Usage: psafe [ action ] [ safe.psafe3 ] [ pattern ] [ options ]
+       psafe copy safe.psafe3 bank account -a
+       psafe default safe.psafe3
+       psafe copy bank account
 
 Actions:
   copy                 copy the first matched password to the clipboard
@@ -37,7 +37,7 @@ if not patternOpt
   return usage()
 
 try
-  safeFilePath = fs.readFileSync("#{userhome}/.pws").toString().trim()
+  safeFilePath = fs.readFileSync("#{userhome}/.psafe").toString().trim()
 catch
   safeFilePath = argv['_'].shift()
 

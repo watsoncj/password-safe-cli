@@ -1,10 +1,10 @@
 {
   "name": "password-safe-cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A command-line interface for password-safe files",
-  "main": "./lib/pws.js",
+  "main": "./lib/psafe.js",
   "bin": {
-    "pws": "./lib/pws.js"
+    "psafe": "./bin/psafe"
   },
   "scripts": {
     "test": "make clean build test"

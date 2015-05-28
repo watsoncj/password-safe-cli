@@ -1,3 +1,3 @@
 fs = require 'fs'
 module.exports = (records, options)->
-  fs.writeFileSync "#{options.userhome}/.pws", options.safePath
+  fs.writeFileSync "#{options.userhome}/.psafe", options.safePath
