@@ -20,6 +20,18 @@ Copy passwords to the clipboard from your safe.
 - Supports pwsafe3 versions 3.01 through 3.30
 - Currenly read-only
 
+## Installation
+
+First make sure you have [Node.js](https://nodejs.org/) installed.
+
+For the time being there is also a dependency on coffee-script:
+
+    npm install -g coffee-script
+
+Finally, install this package:
+
+    npm install -g password-safe-cli
+
 
 ## Credits
 
