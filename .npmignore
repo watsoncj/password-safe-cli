@@ -1,0 +1,5 @@
+src/
+test/
+.travis.yml
+password-safe-cli-*.tgz
+lib/*Spec.js

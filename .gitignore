@@ -1,2 +1,4 @@
 .safe
 node_modules/
+lib/
+password-safe-cli-*.tgz

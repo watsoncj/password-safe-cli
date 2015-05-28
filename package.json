@@ -1,14 +1,18 @@
 {
   "name": "password-safe-cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A command-line interface for password-safe files",
-  "main": "./lib/pws.coffee",
+  "main": "./lib/pws.js",
   "bin": {
-    "pws": "./lib/pws.coffee"
+    "pws": "./lib/pws.js"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha lib/*Spec.coffee"
+    "test": "make clean build test"
   },
+  "engines": {
+    "node": ">=0.10.3"
+  },
+  "preferGlobal": true,
   "author": "Casey Watson",
   "license": "MIT",
   "repository": {
