@@ -7,13 +7,14 @@ init:
 
 clean:
 	rm -rf dist/
+	rm -rf lib/
 
 build:
 	coffee -o lib/ -c test/setup.coffee
 	coffee -o lib/ -c src/
 
-test:
-	mocha lib/*Spec.js
+test: clean build
+	mocha lib/{,**}/*.spec.js
 
 dist: clean init build test
 
