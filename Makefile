@@ -13,10 +13,10 @@ build:
 	coffee -o lib/ -c test/setup.coffee
 	coffee -o lib/ -c src/
 
-test: clean build
-	mocha lib/{,**}/*.spec.js
+test: clean
+	mocha src/{,**}/*.spec.coffee
 
-dist: clean init build test
+dist: clean init test build
 
 publish: dist
 	npm publish

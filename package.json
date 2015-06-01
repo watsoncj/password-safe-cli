@@ -22,9 +22,11 @@
   "dependencies": {
     "copy-paste": "^1.1.0",
     "editdistance": "^0.2.2",
+    "lodash": "^3.9.3",
     "node-notifier": "^4.2.1",
     "password-safe": "0.0.2",
     "prompt": "^0.2.14",
+    "q": "^1.4.1",
     "yargs": "^3.10.0"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "coffee-script": "^1.9.3",
     "mocha": "^2.2.5",
     "mockery": "^1.4.0",
-    "sinon": "^1.14.1"
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0"
   }
 }
