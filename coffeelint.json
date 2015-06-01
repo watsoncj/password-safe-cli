@@ -1,6 +1,6 @@
 {
     "arrow_spacing": {
-        "level": "ignore"
+        "level": "warn"
     },
     "camel_case_classes": {
         "level": "error"
@@ -17,7 +17,7 @@
     },
     "cyclomatic_complexity": {
         "value": 10,
-        "level": "ignore"
+        "level": "warn"
     },
     "duplicate_key": {
         "level": "error"
@@ -30,7 +30,7 @@
         "level": "error"
     },
     "line_endings": {
-        "level": "ignore",
+        "level": "warn",
         "value": "unix"
     },
     "max_line_length": {
@@ -39,7 +39,7 @@
         "limitComments": true
     },
     "missing_fat_arrows": {
-        "level": "ignore"
+        "level": "warn"
     },
     "newlines_after_classes": {
         "value": 3,
