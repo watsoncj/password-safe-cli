@@ -3,34 +3,34 @@ filter = require './filter'
 describe 'filter', ->
   it 'should match exact titles', ->
     matches = filter [
-        getTitle: -> 'pizza'
+        title: 'pizza'
       ,
-        getTitle: -> 'pasta'
+        title: 'pasta'
     ], 'pasta'
     expect(matches.length).to.be.ok
-    expect(matches[0].getTitle()).to.equal 'pasta'
+    expect(matches[0].title).to.equal 'pasta'
 
   it 'should match fuzzy titles', ->
     matches = filter [
-        getTitle: -> 'pizza'
+        title: 'pizza'
       ,
-        getTitle: -> 'pasta'
+        title: 'pasta'
     ], 'rasta'
     expect(matches.length).to.be.ok
-    expect(matches[0].getTitle()).to.equal 'pasta'
+    expect(matches[0].title).to.equal 'pasta'
 
   it 'tolerates undefined first title', ->
     matches = filter [
-      getTitle: ->
+      title: undefined
     ,
-      getTitle: -> 'pizza'
+      title: 'pizza'
     ], 'rasta'
-    expect(matches[0].getTitle()).to.equal 'pizza'
+    expect(matches[0].title).to.equal 'pizza'
 
   it 'tolerates undefined last title', ->
     matches = filter [
-      getTitle: -> 'pizza'
+      title: 'pizza'
     ,
-      getTitle: ->
+      title: undefined
     ], 'rasta'
-    expect(matches[0].getTitle()).to.equal 'pizza'
+    expect(matches[0].title).to.equal 'pizza'

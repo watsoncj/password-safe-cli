@@ -1,1 +1,2 @@
---require lib/setup
+--compilers coffee:coffee-script/register
+--require test/setup
