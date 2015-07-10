@@ -4,9 +4,9 @@ module.exports = (records, pattern) ->
   compare = editdistance(pattern)
 
   records.sort (a, b) ->
-    if a.getTitle() and b.getTitle()
-      return compare.distance(a.getTitle()) - compare.distance(b.getTitle())
-    else if a.getTitle()
+    if a.title and b.title
+      return compare.distance(a.title) - compare.distance(b.title)
+    else if a.title
       return -1
     else
       return 1
