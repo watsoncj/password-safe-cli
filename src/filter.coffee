@@ -1,12 +1,9 @@
-editdistance = require 'editdistance'
+fuzzy = require 'fuzzy'
 
 module.exports = (records, pattern) ->
-  compare = editdistance(pattern)
+  records = records.filter (record) ->
+    record.title?
 
-  records.sort (a, b) ->
-    if a.getTitle() and b.getTitle()
-      return compare.distance(a.getTitle()) - compare.distance(b.getTitle())
-    else if a.getTitle()
-      return -1
-    else
-      return 1
+  fuzzy.filter pattern, records,
+    extract: (record) -> record.title
+  ?.map (result) -> result.original
