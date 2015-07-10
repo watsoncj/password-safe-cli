@@ -13,6 +13,7 @@ Copy passwords to the clipboard from your safe.
 
     Options:
       -a, --all            print all matches, instead of just the first
+      --version            show version number                                       [boolean]
 
 ## Features
 
