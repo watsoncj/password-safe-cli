@@ -20,7 +20,7 @@ Copy passwords to the clipboard from your safe.
 - Native notifications
 - Supports psafe3 versions 3.01 through 3.30
 - Currenly read-only
-- Compatible with [http://pwsafe.info/](pwSafe)
+- Compatible with [pwSfe](http://pwsafe.info/)
 
 ## Installation
 
