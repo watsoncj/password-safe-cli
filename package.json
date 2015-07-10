@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "copy-paste": "^1.1.0",
-    "editdistance": "^0.2.2",
+    "fuzzy": "^0.1.0",
     "lodash": "^3.9.3",
     "node-notifier": "^4.2.1",
     "password-safe": "0.0.2",

@@ -15,7 +15,7 @@ describe 'filter', ->
         title: 'pizza'
       ,
         title: 'pasta'
-    ], 'rasta'
+    ], 'asta'
     expect(matches.length).to.be.ok
     expect(matches[0].title).to.equal 'pasta'
 
@@ -25,7 +25,7 @@ describe 'filter', ->
     ,
       title: 'pizza'
     ], 'rasta'
-    expect(matches[0].title).to.equal 'pizza'
+    expect(matches.length).to.equal 0
 
   it 'tolerates undefined last title', ->
     matches = filter [
@@ -33,4 +33,20 @@ describe 'filter', ->
     ,
       title: undefined
     ], 'rasta'
-    expect(matches[0].title).to.equal 'pizza'
+    expect(matches.length).to.equal 0
+
+  it 'should weight containing matches higher', ->
+    matches = filter [
+      title: 'Regonline'
+    ,
+      title: 'Wells Fargo Online Banking'
+    ], 'wells fargo online'
+    expect(matches[0].title).to.equal 'Wells Fargo Online Banking'
+
+  it 'should allow for misspelled patterns', ->
+    matches = filter [
+      title: 'Wells Fargo Online Banking'
+    ,
+      title: 'Regonline'
+    ], 'wellsfargo'
+    expect(matches[0].title).to.equal 'Wells Fargo Online Banking'

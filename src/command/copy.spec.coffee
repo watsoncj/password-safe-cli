@@ -26,6 +26,9 @@ describe 'copy command', ->
       open: -> Q(mockRecords)
     mockery.registerMock '../safe', mockSafe
 
+    mockFilter = -> [mockRecords[1]]
+    mockery.registerMock '../filter', mockFilter
+
     copyPasteMock =
       copy: sandbox.stub()
     mockery.registerMock 'copy-paste', copyPasteMock
@@ -39,15 +42,15 @@ describe 'copy command', ->
     mockery.disable()
     sandbox.reset()
 
-
   it 'should unlock, copy and notify', ->
     mockPassword = '$uper$ecret'
     passwordPromptMock = sandbox.stub().returns Q(mockPassword)
     mockery.registerMock '../password-prompt', passwordPromptMock
 
     copyCommand = require './copy'
-    copyCommand _: ['copy', 'mockPattern']
+    argv = _: ['copy', 'password', 'two']
+    copyCommand argv
     .then ->
       expect(passwordPromptMock).to.have.been.calledWith 'my-safe'
-      expect(copyPasteMock.copy).to.have.been.calledWith 'password one'
-      expect(mockNotifier.notify).to.have.been.calledWith title: 'my-safe', message: 'title one password copied to the clipboard'
+      expect(copyPasteMock.copy).to.have.been.calledWith 'password two'
+      expect(mockNotifier.notify).to.have.been.called #With title: 'my-safe', message: 'title one password copied to the clipboard'

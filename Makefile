@@ -10,7 +10,6 @@ clean:
 	rm -rf lib/
 
 build:
-	coffee -o lib/ -c test/setup.coffee
 	coffee -o lib/ -c src/
 
 test: clean
