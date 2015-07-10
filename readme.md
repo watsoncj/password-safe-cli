@@ -31,4 +31,4 @@ Finally, install this package:
 
 ## Credits
 
-Uses the awesome [node-passwordsafe](https://github.com/dol/node-passwordsafe) package.
+Uses the awesome [node-passwordsafe](https://github.com/dol/node-passwordsafe) and [fuzzy](https://www.npmjs.com/package/fuzzy) packages.

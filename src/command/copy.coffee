@@ -10,30 +10,19 @@ copyPassword = (record, safeName) ->
     title: safeName
     message: "#{record.title} password copied to the clipboard"
 
-copyRecord = (safe, argv) -> (sorted) ->
+copyRecord = (safeName, matches, showAll) ->
   copied = false
-  for record in sorted
+  for record in matches
     if record.password
       if not copied
-        copyPassword record, safe.name argv
+        copyPassword record, safeName
         copied = true
-        console.log "*",
-          record.title,
-          "[",
-          record.username,
-          "]"
-      else if argv['a'] or argv['all']
-        pattern = argv['_'].join ' '
-        if record.title?.indexOf(pattern) > -1
-          console.log " ",
-            record.title,
-            "[",
-            record.username,
-            "]"
-  console.log "No entries found" unless copied
+        console.log '*', record.title, '[', record.username, ']'
+      else if showAll
+        console.log ' ', record.title, '[', record.username, ']'
+  console.log 'No entries found' unless copied
 
 module.exports = (argv) ->
-
   argv['_'].shift() # remove command name
   passwordPrompt safe.name argv
   .then (password) ->
@@ -41,6 +30,9 @@ module.exports = (argv) ->
   .then (records) ->
     pattern = argv['_'].join ' '
     filter records, pattern
-  .then copyRecord safe, argv
+  .then (matches) ->
+    safeName = safe.name argv
+    showAll = argv.a or argv.all
+    copyRecord safeName, matches, showAll
   .catch (err) ->
     console.log err, err.stack
