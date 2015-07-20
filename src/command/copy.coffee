@@ -29,7 +29,7 @@ module.exports = (argv) ->
     safe.open safe.path(argv), password
   .then (records) ->
     pattern = argv['_'].join ' '
-    filter records, pattern
+    filter pattern, records
   .then (matches) ->
     safeName = safe.name argv
     showAll = argv.a or argv.all
