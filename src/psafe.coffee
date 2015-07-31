@@ -2,6 +2,8 @@
 prompt       = require 'prompt'
 defaultCmd   = require './command/default'
 copyCmd      = require './command/copy'
+listCmd      = require './command/list'
+commands     = require './commands'
 
 yargs = require('yargs')
 .command 'copy', 'copy the first matched password to the clipboard', (yargs) ->
@@ -11,6 +13,9 @@ yargs = require('yargs')
     type: 'boolean'
   copyCmd yargs.argv
 
+.command 'list', 'list the matched records', (yargs) ->
+  listCmd yargs.argv
+
 .command 'default', 'make file the default safe', (yargs) ->
   defaultCmd yargs.argv
 
@@ -19,7 +24,8 @@ yargs = require('yargs')
 
 argv = yargs.argv
 
-if argv['_']?[0] not in ['copy', 'default']
+command = argv['_']?[0]
+if commands[command] is undefined
   yargs.showHelp()
   if argv['_']?[0]?
     console.error 'unknown command:', argv['_'][0]
