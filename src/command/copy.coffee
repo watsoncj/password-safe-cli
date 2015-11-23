@@ -1,5 +1,7 @@
+Q = require 'q'
 {copy}       = require 'copy-paste'
 notifier     = require 'node-notifier'
+keychain     = require 'keychain'
 safe         = require '../safe'
 filter       = require '../filter'
 passwordPrompt = require '../password-prompt'
@@ -20,16 +22,27 @@ copyRecord = (safeName, matches, showAll) ->
         console.log '*', record.title, '[', record.username, ']'
       else if showAll
         console.log ' ', record.title, '[', record.username, ']'
-  console.log 'No entries found' unless copied
+  if copied
+    console.log 'Password copied'
+  else
+    console.log 'No entries found'
+
+getPasswordFromKeychain = Q.denodeify keychain.getPassword.bind keychain
 
 module.exports = (argv) ->
   argv['_'].shift() # remove command name
-  passwordPrompt safe.name argv
+  safeName = safe.name argv
+
+  getPasswordFromKeychain
+    service: 'password-safe-cli'
+    account: safeName
+  .catch (err) ->
+    passwordPrompt safeName
   .then (password) ->
     safe.open safe.path(argv), password
   .then (records) ->
     pattern = argv['_'].join ' '
-    filter records, pattern
+    filter pattern, records
   .then (matches) ->
     safeName = safe.name argv
     showAll = argv.a or argv.all
