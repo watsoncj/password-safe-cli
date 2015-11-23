@@ -25,7 +25,7 @@ copyRecord = (safeName, matches, showAll) ->
   if copied
     console.log 'Password copied'
   else
-    console.log 'No entries found'
+    console.log 'No records found'
 
 getPasswordFromKeychain = Q.denodeify keychain.getPassword.bind keychain
 

@@ -16,6 +16,8 @@ open = (path, password) ->
         title: r.getTitle()
         username: r.getUsername()
         password: r.getPassword()
+        url:      r.getUrl()
+        notes:    r.getNotes()
 
 path = (argv) ->
   try
