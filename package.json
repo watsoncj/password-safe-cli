@@ -27,6 +27,7 @@
     "password-safe": "0.0.2",
     "prompt": "^0.2.14",
     "q": "^1.4.1",
+    "ramda": "^0.16.0",
     "yargs": "^3.10.0"
   },
   "devDependencies": {
