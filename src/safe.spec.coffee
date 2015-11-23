@@ -8,10 +8,14 @@ describe 'safe', ->
     getTitle: -> 'record one'
     getUsername: -> 'user one'
     getPassword: -> 'password one'
+    getUrl:      -> 'https://record.one'
+    getNotes:    -> 'The rain in Spain\nfalls mainly on the plain.'
   ,
     getTitle: -> 'record two'
     getUsername: -> 'user two'
     getPassword: -> 'password two'
+    getUrl:      -> 'https://record.two'
+    getNotes:    ->
   ]
 
   beforeEach ->
