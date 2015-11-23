@@ -30,6 +30,11 @@ Finally, install this package:
 
     npm install -g password-safe-cli
 
+## Development
+
+  make
+  make build
+  npm link
 
 ## Credits
 
