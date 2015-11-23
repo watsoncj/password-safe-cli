@@ -20,6 +20,7 @@
     "url": "https://github.com/watsoncj/password-safe-cli"
   },
   "dependencies": {
+    "chalk": "^1.1.1",
     "copy-paste": "^1.1.0",
     "fuzzy": "^0.1.0",
     "keychain": "^1.0.0",

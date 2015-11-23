@@ -3,6 +3,7 @@ prompt        = require 'prompt'
 defaultCmd    = require './command/default'
 copyCmd       = require './command/copy'
 saveMasterCmd = require './command/save-master'
+listCmd       = require './command/list'
 
 yargs = require('yargs')
 .command 'copy', 'copy the first matched password to the clipboard', (yargs) ->
@@ -11,6 +12,9 @@ yargs = require('yargs')
     describe: 'print all matches, instead of just the first'
     type: 'boolean'
   copyCmd yargs.argv
+
+.command 'list', 'list matching records', (yargs) ->
+  listCmd yargs.argv
 
 .command 'save-master', 'save the master password to the keychain', (yargs) ->
   saveMasterCmd yargs.argv
@@ -23,7 +27,7 @@ yargs = require('yargs')
 
 argv = yargs.argv
 
-if argv['_']?[0] not in ['copy', 'default', 'save-master']
+if argv['_']?[0] not in ['copy', 'list', 'default', 'save-master']
   yargs.showHelp()
   if argv['_']?[0]?
     console.error 'unknown command:', argv['_'][0]
