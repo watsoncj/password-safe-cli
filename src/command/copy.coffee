@@ -1,4 +1,5 @@
-Q = require 'q'
+chalk        = require 'chalk'
+Q            = require 'q'
 {copy}       = require 'copy-paste'
 notifier     = require 'node-notifier'
 keychain     = require 'keychain'
@@ -19,9 +20,9 @@ copyRecord = (safeName, matches, showAll) ->
       if not copied
         copyPassword record, safeName
         copied = true
-        console.log '*', record.title, '[', record.username, ']'
+        console.log chalk.yellow('*'), chalk.yellow(record.title), '[', record.username, ']'
       else if showAll
-        console.log ' ', record.title, '[', record.username, ']'
+        console.log ' ', chalk.yellow(record.title), '[', record.username, ']'
   if copied
     console.log 'Password copied'
   else
