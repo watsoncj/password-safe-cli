@@ -46,6 +46,8 @@ describe 'copy command', ->
     mockPassword = '$uper$ecret'
     passwordPromptMock = sandbox.stub().returns Q(mockPassword)
     mockery.registerMock '../password-prompt', passwordPromptMock
+    keychainMock = getPassword: -> Q.reject()
+    mockery.registerMock 'keychain', keychainMock
 
     copyCommand = require './copy'
     argv = _: ['copy', 'password', 'two']
