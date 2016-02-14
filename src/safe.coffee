@@ -1,8 +1,7 @@
 fs           = require 'fs'
 PasswordSafe = require 'password-safe'
 Q            = require 'q'
-_            = require 'lodash'
-{curry}      = require 'ramda'
+{curry} = require 'ramda'
 fileName     = require './file-name'
 userHome     = require './user-home'
 
@@ -13,7 +12,7 @@ open = curry (path, password) ->
     db = fs.readFileSync path
     safe.load db, (err, header, records) ->
       return reject err if err
-      resolve _.map records, (r) ->
+      resolve records.map (r) ->
         title: r.getTitle()
         username: r.getUsername()
         password: r.getPassword()
