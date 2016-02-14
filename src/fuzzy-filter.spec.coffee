@@ -1,8 +1,8 @@
-filter = require './filter'
+fuzzyFilter = require './fuzzy-filter'
 
-describe 'filter', ->
+describe 'fuzzyFilter', ->
   it 'should match exact titles', ->
-    matches = filter 'pasta', [
+    matches = fuzzyFilter 'pasta', [
         title: 'pizza'
       ,
         title: 'pasta'
@@ -11,7 +11,7 @@ describe 'filter', ->
     expect(matches[0].title).to.equal 'pasta'
 
   it 'should match fuzzy titles', ->
-    matches = filter 'asta', [
+    matches = fuzzyFilter 'asta', [
         title: 'pizza'
       ,
         title: 'pasta'
@@ -20,7 +20,7 @@ describe 'filter', ->
     expect(matches[0].title).to.equal 'pasta'
 
   it 'tolerates undefined first title', ->
-    matches = filter 'rasta', [
+    matches = fuzzyFilter 'rasta', [
       title: undefined
     ,
       title: 'pizza'
@@ -28,7 +28,7 @@ describe 'filter', ->
     expect(matches.length).to.equal 0
 
   it 'tolerates undefined last title', ->
-    matches = filter 'rasta', [
+    matches = fuzzyFilter 'rasta', [
       title: 'pizza'
     ,
       title: undefined
@@ -36,7 +36,7 @@ describe 'filter', ->
     expect(matches.length).to.equal 0
 
   it 'should weight containing matches higher', ->
-    matches = filter 'wells fargo online', [
+    matches = fuzzyFilter 'wells fargo online', [
       title: 'Regonline'
     ,
       title: 'Wells Fargo Online Banking'
@@ -44,7 +44,7 @@ describe 'filter', ->
     expect(matches[0].title).to.equal 'Wells Fargo Online Banking'
 
   it 'should allow for misspelled patterns', ->
-    matches = filter 'wellsfargo', [
+    matches = fuzzyFilter 'wellsfargo', [
       title: 'Wells Fargo Online Banking'
     ,
       title: 'Regonline'
@@ -52,7 +52,7 @@ describe 'filter', ->
     expect(matches[0].title).to.equal 'Wells Fargo Online Banking'
 
   it 'should be curried', ->
-    matches = filter('wellsfargo') [
+    matches = fuzzyFilter('wellsfargo') [
       title: 'Wells Fargo Online Banking'
     ,
       title: 'Regonline'

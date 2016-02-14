@@ -1,4 +1,5 @@
 Q = require 'q'
+{curry} = require 'ramda'
 
 describe 'copy command', ->
   copyPasteMock = promptMock = passwordPromptMock = sandbox = mockNotifier = null
@@ -26,8 +27,8 @@ describe 'copy command', ->
       open: -> Q(mockRecords)
     mockery.registerMock '../safe', mockSafe
 
-    mockFilter = -> [mockRecords[1]]
-    mockery.registerMock '../filter', mockFilter
+    mockFilter = curry((pattern, records) -> [mockRecords[1]])
+    mockery.registerMock '../fuzzy-filter', mockFilter
 
     copyPasteMock =
       copy: sandbox.stub()
@@ -44,8 +45,8 @@ describe 'copy command', ->
 
   it 'should unlock, copy and notify', ->
     mockPassword = '$uper$ecret'
-    passwordPromptMock = sandbox.stub().returns Q(mockPassword)
-    mockery.registerMock '../password-prompt', passwordPromptMock
+    getPasswordMock = sandbox.stub().returns Q(mockPassword)
+    mockery.registerMock '../get-safe-password', getPasswordMock
     keychainMock = getPassword: -> Q.reject()
     mockery.registerMock 'keychain', keychainMock
 
@@ -53,6 +54,6 @@ describe 'copy command', ->
     argv = _: ['copy', 'password', 'two']
     copyCommand argv
     .then ->
-      expect(passwordPromptMock).to.have.been.calledWith 'my-safe'
+      expect(getPasswordMock).to.have.been.calledWith 'my-safe'
       expect(copyPasteMock.copy).to.have.been.calledWith 'password two'
       expect(mockNotifier.notify).to.have.been.called #With title: 'my-safe', message: 'title one password copied to the clipboard'

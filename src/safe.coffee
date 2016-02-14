@@ -2,10 +2,11 @@ fs           = require 'fs'
 PasswordSafe = require 'password-safe'
 Q            = require 'q'
 _            = require 'lodash'
+{curry}      = require 'ramda'
 fileName     = require './file-name'
 userHome     = require './user-home'
 
-open = (path, password) ->
+open = curry (path, password) ->
   Q.Promise (resolve, reject) ->
     safe = new PasswordSafe password: password
 
