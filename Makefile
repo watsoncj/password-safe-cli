@@ -2,8 +2,11 @@ PATH := ./node_modules/.bin:${PATH}
 
 .PHONY: all test clean
 
+dist: clean init test build
+
 init:
 	npm install
+	npm link
 
 clean:
 	rm -rf dist/
@@ -14,8 +17,6 @@ build:
 
 test:
 	mocha src/{,**}/*.spec.coffee
-
-dist: clean init test build
 
 publish: dist
 	npm publish
