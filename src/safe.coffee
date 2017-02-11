@@ -13,11 +13,11 @@ open = (path, password) ->
     safe.load db, (err, header, records) ->
       return reject err if err
       resolve _.map records, (r) ->
-        title: r.getTitle()
-        username: r.getUsername()
-        password: r.getPassword()
-        url:      r.getUrl()
-        notes:    r.getNotes()
+        title: r.getTitle() or ''
+        username: r.getUsername() or ''
+        password: r.getPassword() or ''
+        url:      r.getUrl() or ''
+        notes:    r.getNotes() or ''
 
 path = (argv) ->
   try

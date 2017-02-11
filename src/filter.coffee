@@ -1,7 +1,8 @@
 R = require 'ramda'
-fuzzy = require 'fuzzy'
+Sifter = require 'sifter'
 
 module.exports = R.curry (pattern, records) ->
-  fuzzyTitleFilter = R.curry(fuzzy.filter) pattern, R.__, extract: R.prop 'title'
-  fuzzyFilter = R.compose R.map(R.prop 'original'), fuzzyTitleFilter, R.filter R.prop 'title'
-  fuzzyFilter records
+  sifter = new Sifter records
+  results = sifter.search pattern, fields: ['title', 'notes']
+  results.items.map (item) ->
+    records[item.id]

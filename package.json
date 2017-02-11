@@ -22,7 +22,6 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "copy-paste": "^1.1.0",
-    "fuzzy": "^0.1.0",
     "keychain": "^1.0.0",
     "lodash": "^3.9.3",
     "node-notifier": "^4.2.1",
@@ -30,6 +29,7 @@
     "prompt": "^0.2.14",
     "q": "^1.4.1",
     "ramda": "^0.16.0",
+    "sifter": "^0.5.2",
     "yargs": "^3.10.0"
   },
   "devDependencies": {

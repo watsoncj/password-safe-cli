@@ -19,6 +19,14 @@ describe 'filter', ->
     expect(matches.length).to.be.ok
     expect(matches[0].title).to.equal 'pasta'
 
+  it 'should match notes', ->
+    matches = filter 'ello', [
+        notes: 'yellow'
+      ,
+        notes: 'dellow'
+    ]
+    expect(matches.length).to.equal 2
+
   it 'tolerates undefined first title', ->
     matches = filter 'rasta', [
       title: undefined
@@ -43,16 +51,8 @@ describe 'filter', ->
     ]
     expect(matches[0].title).to.equal 'Wells Fargo Online Banking'
 
-  it 'should allow for misspelled patterns', ->
-    matches = filter 'wellsfargo', [
-      title: 'Wells Fargo Online Banking'
-    ,
-      title: 'Regonline'
-    ]
-    expect(matches[0].title).to.equal 'Wells Fargo Online Banking'
-
   it 'should be curried', ->
-    matches = filter('wellsfargo') [
+    matches = filter('wells fargo') [
       title: 'Wells Fargo Online Banking'
     ,
       title: 'Regonline'
