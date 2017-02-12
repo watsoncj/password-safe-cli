@@ -3,7 +3,7 @@ Q            = require 'q'
 keychain     = require 'keychain'
 R            = require 'ramda'
 safe         = require '../safe'
-filter       = require '../filter'
+fuzzyFilter       = require '../fuzzy-filter'
 passwordPrompt = require '../password-prompt'
 
 printRecord = (record) ->
@@ -26,7 +26,7 @@ module.exports = (argv) ->
     safe.open safe.path(argv), password
   .then (records) ->
     pattern = argv['_'].join ' '
-    filter pattern, records
+    fuzzyFilter pattern, records
   .then (matches) ->
     if matches.length is 0
       console.log 'No records found'

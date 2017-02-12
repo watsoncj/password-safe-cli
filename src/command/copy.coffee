@@ -1,52 +1,45 @@
+{addIndex, curry, filter, head, identity, map} = require 'ramda'
 chalk        = require 'chalk'
-Q            = require 'q'
 {copy}       = require 'copy-paste'
 notifier     = require 'node-notifier'
-keychain     = require 'keychain'
 safe         = require '../safe'
-filter       = require '../filter'
-passwordPrompt = require '../password-prompt'
+fuzzyFilter  = require '../fuzzy-filter'
+getPassword  = require '../get-safe-password'
+indexFilter  = addIndex filter
 
-copyPassword = (record, safeName) ->
+logRecord = (record) ->
+  if record.username
+    console.log ' %s [%s]', chalk.yellow(record.title), record.username
+  else
+    console.log ' %s', chalk.yellow(record.title)
+  record
+
+copyPassword = (record) ->
   copy record.password
+  record
+
+notify = curry (safeName, record) ->
   notifier.notify
     title: safeName
     message: "#{record.title} password copied to the clipboard"
-
-copyRecord = (safeName, matches, showAll) ->
-  copied = false
-  for record in matches
-    if record.password
-      if not copied
-        copyPassword record, safeName
-        copied = true
-        console.log chalk.yellow('*'), chalk.yellow(record.title), '[', record.username, ']'
-      else if showAll
-        console.log ' ', chalk.yellow(record.title), '[', record.username, ']'
-  if copied
-    console.log 'Password copied'
-  else
-    console.log 'No records found'
-
-getPasswordFromKeychain = Q.denodeify keychain.getPassword.bind keychain
+  record
 
 module.exports = (argv) ->
   argv['_'].shift() # remove command name
   safeName = safe.name argv
+  safePath = safe.path argv
+  needle = argv['_'].join ' '
+  showAll = argv.a or argv.all
 
-  getPasswordFromKeychain
-    service: 'password-safe-cli'
-    account: safeName
-  .catch (err) ->
-    passwordPrompt safeName
-  .then (password) ->
-    safe.open safe.path(argv), password
-  .then (records) ->
-    pattern = argv['_'].join ' '
-    filter pattern, records
-  .then (matches) ->
-    safeName = safe.name argv
-    showAll = argv.a or argv.all
-    copyRecord safeName, matches, showAll
-  .catch (err) ->
-    console.log err, err.stack
+  filterHead = indexFilter (record, idx) -> idx == 0
+  allOrFirst = if showAll then identity else filterHead
+
+  getPassword safeName
+  .then safe.open safePath
+  .then fuzzyFilter needle
+  .then allOrFirst
+  .then map logRecord
+  .then head
+  .then copyPassword
+  .then notify safeName
+  .catch console.error
