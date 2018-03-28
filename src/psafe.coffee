@@ -4,6 +4,7 @@ defaultCmd    = require './command/default'
 copyCmd       = require './command/copy'
 saveMasterCmd = require './command/save-master'
 listCmd       = require './command/list'
+replCmd       = require './command/repl'
 
 yargs = require('yargs')
 .command 'copy', 'copy the first matched password to the clipboard', (yargs) ->
@@ -22,12 +23,15 @@ yargs = require('yargs')
 .command 'default', 'make file the default safe', (yargs) ->
   defaultCmd yargs.argv
 
+.command 'repl', 'open the psafe repl', (yargs) ->
+  replCmd yargs.argv
+
 .version -> require('../package').version
 .strict()
 
 argv = yargs.argv
 
-if argv['_']?[0] not in ['copy', 'list', 'default', 'save-master']
+if argv['_']?[0] not in ['copy', 'list', 'default', 'save-master', 'repl']
   yargs.showHelp()
   if argv['_']?[0]?
     console.error 'unknown command:', argv['_'][0]
